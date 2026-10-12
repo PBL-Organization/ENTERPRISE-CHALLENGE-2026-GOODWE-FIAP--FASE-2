@@ -3,7 +3,7 @@ import urllib.request
 import urllib.error
 import time
 
-# URL da API Central (A API que a Sarah está configurando)
+# URL da API Central (A API que a Sarah está configurando/vai configurar...)
 # Se estiver rodando localmente na mesma máquina, normalmente será http://127.0.0.1:8000/sessao
 URL_API = "http://127.0.0.1:8000/sessao"
 
