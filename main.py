@@ -1,15 +1,16 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from decimal import Decimal
 
 # Inicializa a aplicação FastAPI
 app = FastAPI(title="EV ChargeOps - API Central", version="1.0")
 
-# Define o contrato de dados esperado (Validação automática via Pydantic)
+# Define o contrato de dados esperado com precisão contábil (Decimal)
 class SessaoRecarga(BaseModel):
     id_usuario: str
     id_unidade: str
     id_carregador: str
-    kwh_consumido: float
+    kwh_consumido: Decimal  # Blindado contra as imprecisões do ponto flutuante (float)
     tempo_conexao_minutos: int
     ocioso_minutos: int
     status_sessao: str
@@ -26,9 +27,10 @@ def receber_telemetria_borda(sessao: SessaoRecarga):
     print(f"-> Volume Consumido: {sessao.kwh_consumido} kWh")
     print(f"-> Status: {sessao.status_sessao}\n")
     
-    # Retorna uma resposta de confirmação para a borda
+    # Retorna uma resposta de confirmação para a borda.
+    # O uso de mode='json' no model_dump garante a serialização correta do tipo Decimal.
     return {
         "status_code": 201,
         "mensagem": "Telemetria processada e gravada com sucesso na API Central.",
-        "dados_processados": sessao.model_dump()
+        "dados_processados": sessao.model_dump(mode='json')
     }
