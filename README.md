@@ -1,4 +1,3 @@
-# ENTERPRISE-CHALLENGE-2026-GOODWE-FIAP--FASE-2
 # Ev-ChargeOps: Sistema Inteligente de Gestão, Telemetria e Faturamento para Veículos Elétricos
 
 ## 1. Descrição da Solução Implementada
